@@ -1,12 +1,5 @@
-#define TECLA 0x20
+#define TECLA   0x20
 
-typedef void rutina;
-// Para obtener la dirección de una rutina se dispone de la función
-rutina* radr (char *nombre_rutina);
-// Para pasar el control a una dirección determinada se usa la función
-void jmp(rutina* dirección);
-// Para obtener la dirección del programa interrumpido se usa la función
-rutina* padr();
 
 // Variables globales
 char rutina_activa, hay_escape_prev;
@@ -27,8 +20,7 @@ void int_teclado() {
         hay_escape_prev = 0;
         if (caracter == 0x1B) {
             rutina_activa = 0;
-            rutina *dir = padr();
-            jmp(dir);
+            jmp(padr());
         }
     } else if (hay_escape_prev && es_num_valido) {
         hay_escape_prev = 0;
@@ -37,8 +29,7 @@ void int_teclado() {
         if (caracter == 0x31) nombre_rutina = "RUTINA1";
         if (caracter == 0x32) nombre_rutina = "RUTINA2";
         if (caracter == 0x33) nombre_rutina = "RUTINA3";
-        rutina *dir = radr(nombre_rutina);
-        jmp(dir);
+        jmp(radr(nombre_rutina));
     } else if (caracter == 0x1B) {
         hay_escape_prev = 1;
     } else {

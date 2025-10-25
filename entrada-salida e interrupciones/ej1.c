@@ -1,7 +1,8 @@
-#define ESTADO_TECLADO
-#define DATO_TECLADO
+#define ESTADO_TECLADO  0x20
+#define DATO_TECLADO    0x21
 
 struct Lista *lista;
+
 
 void leerCaracteres() {
     while (1) {

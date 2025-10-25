@@ -1,4 +1,5 @@
-#define BOMBA 0x20
+#define BOMBA   0x20
+
 
 void activarBomba() {
     out(BOMBA, in(BOMBA) | 0x04);
