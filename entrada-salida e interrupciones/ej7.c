@@ -20,7 +20,7 @@ void main() {
         case ESTADO_SEGURO:
             if (conc_peligrosa) {
                 out(ACCESORIO, in(ACCESORIO) | 1);
-                tics = 0;
+                tics = _30_SEG;
                 estado = ESTADO_PELIGROSO;
             }
         break;
@@ -28,7 +28,7 @@ void main() {
             if (!conc_peligrosa) {
                 out(ACCESORIO, in(ACCESORIO) & 0xFE);
                 estado = ESTADO_SEGURO;
-            } else if (tics >= _30_SEG) {
+            } else if (tics == 0) {
                 out(ACCESORIO, in(ACCESORIO) & 0xFD);
                 estado = ESTADO_VALVULA_CERRADA;
             }
@@ -43,5 +43,6 @@ void main() {
 
 // void interrupt
 void tiempo() {
-    tics++;
+    if (tics > 0)
+      tics--;
 }

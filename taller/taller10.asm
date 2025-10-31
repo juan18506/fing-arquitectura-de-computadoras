@@ -47,18 +47,18 @@ main ENDP
 boton PROC FAR
     PUSH DX;
     PUSH AX;
-    MOV BYTE PTR DS:[en_juego], 0;
+    MOV BYTE PTR CS:[en_juego], 0;
     MOV DX, MOTOR;
     MOV AL, 2;
     OUT DX, AL;
     POP AX;
     POP DX;
-    RET;
+    IRET;
 boton ENDP
 
 gruaLiberada PROC FAR
-    MOV BYTE PTR DS:[en_juego], 1;
-    RET;
+    MOV BYTE PTR CS:[en_juego], 1;
+    IRET;
 gruaLiberada ENDP
 
 .ports ; Definición de puertos
