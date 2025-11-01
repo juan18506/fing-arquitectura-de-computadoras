@@ -1,15 +1,17 @@
 ; Segmento de datos de DS
 .data
 
+JOYSTICK EQU 0x60;
+MOTOR EQU 0x80;
+en_juego DB 1;
+
 IRQ_BOTON EQU 9;
 IRQ_GRUA EQU 31;
 IRQ_BOTON_OFFSET EQU IRQ_BOTON * 4;
 IRQ_BOTON_SEG EQU IRQ_BOTON * 4 + 2;
 IRQ_GRUA_OFFSET EQU IRQ_GRUA * 4;
 IRQ_GRUA_SEG EQU IRQ_GRUA * 4 + 2;
-JOYSTICK EQU 0x60;
-MOTOR EQU 0x80;
-en_juego DB 1;
+
 
 .code  ; Segmento de código
 
