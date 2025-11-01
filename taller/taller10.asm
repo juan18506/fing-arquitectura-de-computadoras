@@ -24,24 +24,22 @@ main PROC
     MOV WORD PTR ES:[IRQ_GRUA_SEG], SEGMENT gruaLiberada;
     STI;
 while:
-    CMP BYTE PTR [en_juego], 1;
-    JNE finif1;
+    CMP BYTE PTR [en_juego], 0; if (en_juego)
+    JE finif;
     MOV DX, JOYSTICK;
     IN AL, DX;
-    AND AL, 0x0F;
-    CMP AL, 1;
-    JNE else;
+    AND AL, 0x0F; AL: movimiento
+    JZ else; if (movimiento)
     MOV CL, 4;
     SHL AL, CL;
-    OR AL, 1;
+    OR AL, 1; AL: (movimiento << 4) | 1
     MOV DX, MOTOR;
-    OUT DX, AL;
-    JMP finif2;
+    OUT DX, AL; out(MOTOR, (movimiento << 4) | 1)
+    JMP finif;
 else:
     MOV DX, MOTOR;
-    OUT DX, AL;
-finif2:
-finif1:
+    OUT DX, AL; out(MOTOR, 0)
+finif:
     JMP while;
     RET;
 main ENDP
@@ -52,7 +50,7 @@ boton PROC FAR
     MOV BYTE PTR CS:[en_juego], 0;
     MOV DX, MOTOR;
     MOV AL, 2;
-    OUT DX, AL;
+    OUT DX, AL; out(MOTOR, 2)
     POP AX;
     POP DX;
     IRET;
