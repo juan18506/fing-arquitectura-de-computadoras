@@ -4,44 +4,32 @@
 .code  ; Segmento de código
 
 ej3 PROC
-    ; AX entero y en BX puntero al arbol
+    ; AX entero y en BX indice al arbol
     ; arbol en memoria desde ES:[0], resultado en CL 1t, 0f
     ; se conservan los demas registros
-    CMP BYTE PTR ES:[BX], 0;
-    JNE finif1;
+    PUSH SI;
+    PUSH BX;
+    PUSH DX;
     XOR CL, CL;
+    CMP BX, 0; if i == 0
+    JNE fin;
+    SHL BX, 1;
+    SHL BX, 1; convierte indice en offset
+    CMP AX, ES:[BX]; if buscado == arbol[i].dato
+    JNE else;
+    INC CL;
     JMP fin;
-finif1:
-    CMP AX, ES:[BX];
-    JNE finif2;
-    MOV CL, 1;
-    JMP fin;
-finif2:
-    CMP AX, ES:[BX];
-    JNL finif3;
-    PUSH DX;
-    PUSH BX;
-    XOR DH, DH;
-    MOV DL, ES:[BX+2];
-    SHL DX, 1;
-    SHL DX, 1;
-    MOV BX, DX;
+else:
+    MOV SI, BX;
+    MOV BX, ES:[SI+2];
     CALL ej3;
-    POP BX;
-    POP DX;
-    JMP fin;
-finif3:
-    PUSH DX;
-    PUSH BX;
-    XOR DX, DX;
-    MOV DL, ES:[BX+3];
-    SHL DX, 1;
-    SHL DX, 1;
-    MOV BX, DX;
-    CALL ej3;
-    POP BX;
-    POP DX;
+    MOV DL, CL;
+    MOV BX, ES:[SI+3];
+    OR CL, DL;
 fin:
+    POP DX;
+    POP BX;
+    POP SI;
     RET;
 ej3 ENDP
 
