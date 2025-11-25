@@ -7,17 +7,16 @@ void buscoMayor(unsigned char indice, out short mayor, out char indiceMayor) {
     } else {
     	buscoMayor(arbol[indice].hijoIzq, mayorI, indiceI);	
     	buscoMayor(arbol[indice].hijoDer, mayorD, indiceD);
-	if (mayorD > mayorI) {
-	    mayor = mayorD;
-	    indiceMayor = indiceD;	    
-	else { 
-	    mayor = mayorI;
-	    indiceMayor = indiceI;
-	}
-	if (arbol[indice].dato > mayor) {
-	    mayor = arbol[indice.dato];
-	    indiceMayor = indice;
-	}
+		if (mayorD > mayorI) {
+		    mayor = mayorD;
+		    indiceMayor = indiceD;
+	    } else { 
+		    mayor = mayorI;
+		    indiceMayor = indiceI;
+		}
+		if (arbol[indice].dato > mayor) {
+		    mayor = arbol[indice].dato;
+		    indiceMayor = indice;
+		}
     }
 }
-
